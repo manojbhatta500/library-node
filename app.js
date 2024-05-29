@@ -1,11 +1,12 @@
 const express = require('express');
 require('dotenv').config();
-const {addBook} = require('./controller/book.controller')
+const {addBook,getBook,deleteBook,patchBook} = require('./controller/book.controller')
+const bodyparser = require('body-parser');
 
 const db = require('./db');
-
-
 const app = express();
+
+app.use(bodyparser.json());
 
 
 app.get('/',(req,res)=>{
@@ -13,19 +14,14 @@ app.get('/',(req,res)=>{
 })
 
 
-app.post('/books',addBook);
+app.post('/book',addBook);
 
-// app.post('/books',(req,res)=>{
-//     console.log('we will post an book here');
-// });
+app.get('/book',getBook);
 
-// app.patch('/books/:id',(req,res)=>{
-//     console.log('we will edit an book here');
-// });
 
-// app.delete('/books/:id',(req,res)=>{
-//     console.log('we will delete an book here with the help of id');
-// })
+app.patch('/book/:id',patchBook);
+
+app.delete('/book/:id',deleteBook)
 
 
 
